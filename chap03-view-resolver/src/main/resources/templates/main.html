@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<h1> 뷰 리졸버를 이용한 뷰 연결하기</h1>
+
+<!--
+  핸들러 메소드가 요청을 처리하고 논리 뷰 이름을 반환하면 DispatcherServlet 은
+   화면에서 데이터를 표시하도록 뷰 템플릿에 제어권을 넘긴다
+   스프링에서는 다양한 전략에 맞게 뷰를 해석할 수 있는 ViewResolver 구현체를 가지고 있다
+   뷰 리졸버는 prefix / subfix를  통해 뷰 이름을 특정 어플리케이션 디렉토리에 대응 시킨다
+   그 중 타임리프는 뷰 리졸버인 ThymeleafViewResolver를 사용한다
+   타임리프는 prefix가 "resource/templates/"이고 sufix가 .html이다
+
+   스프링 MVC에서 타임리프를 사용할 때 논리 뷰 이름을 받은 후
+    뷰 리졸버가 resources/templates/ 디렉토리에서 해당하는 .
+    html 파일을 찾아서 브라우저에 렌더링하도록 하는 과정입니다.
+
+    DispatcherServlet이란 ?
+    이 논리 뷰 이름을 받은 후, 스프링의 DispatcherServlet이 이를 처리하고
+     실제로 어떤 HTML 파일을 보여줄지 결정합니다. 이때 필요한 것이 **뷰 리졸버(ViewResolver)**입니다.
+-->
+
+  <h3>문자열로 뷰 이름 반환하기</h3>
+<button onclick="location.href='string'">문자열로 뷰</button>
+
+<h3>문자열로 redirect 하기</h3>
+<button onclick="location.href='string-redirect'">문자열로 뷰이름 반환하여 리다이렉트</button>
+
+<h3>문자열로 뷰 이름 반환하면서 flashAttribute 추가하기</h3>
+<button onclick="location.href='string-redirect-attr'">문자열로 뷰이름 반환하여 리다이렉트 & flashAttr 사용하기</button>
+
+<h5 th:text="${flashMessage1}"></h5>
+
+<script>
+  const flashMessage1 = `[[${flashMessage1}]]` //타임리프 측에서 서버측 변수 가져오는 문법
+  console.log(flashMessage1);
+  if (flashMessage1){
+    alert(flashMessage1);
+  }
+</script>
+
+<h3>ModelAndView로 뷰이름 지정해서 반환 하기</h3>
+<button onclick="location.href='modelandview'">ModelAndView로 뷰이름 지정해서 반환</button>
+
+
+<h3>ModelAndView로 리다이렉트</h3>
+<button onclick="location.href='modelandview-redirect'">ModelAndView로 리다이렉트</button>
+
+<h3>ModelAndView로 리다이렉트 하고 flashAttribute 추가</h3>
+<button onclick="location.href='modelandview-redirect-attr'">ModelAndView로 리다이렉트  flashAttribute 추가</button>
+
+<h5 th:text="${flashMessage2}"></h5>
+<script>
+  const  flashMessage2 = `[[${flashMessage2}]]`;
+  console.log(flashMessage2);
+  if (flashMessage2){
+    alert(flashMessage2);
+  }
+</script>
+
+
+</body>
+</html>
