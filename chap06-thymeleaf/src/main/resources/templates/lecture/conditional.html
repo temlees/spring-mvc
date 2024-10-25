@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+ <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <Link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+</head>
+<body>
+<h1 align="center">제어문</h1>
+<h2>th:if , th:unless</h2>
+<h3>
+    th:if 변수 표현식을 활용한 조건식으로 조건문을 작성하면 결과가 true일때
+    해당 태그 범위가 처리된다
+    th:unless 변수 표현식을 활용한 조건식으로 조건문을 작성하면 결과가 false일때 해당태그벙위가 처리
+</h3>
+<p th:if="${num > 0}">넘어온 값이 0보다 크다</p>
+<p th:if="${num < 0}">넘어온 값이 0보다 작다</p>
+<p th:unlses="${num < 0}">넘어온 값이 0보다 크다</p>
+
+<th:block th:if="${str=='사과'}">
+    <p>사과는 몸에 좋아요</p>
+    <p>편의점 사과 1600원</p>
+</th:block>
+<th:block th:if="${str=='바나나'}">
+    <p>바나나 몸에 좋아요</p>
+    <p>편의점 바나나 3000</p>
+</th:block>
+
+<h3>and나 or를 사용해서 다중 조건 처리도 가능하다</h3>
+<p th:if="${num>0 or num<=10}">1부터 10까지의 양수</p>
+<p th:if="${str != null and str == '바나나'}">바나나!</p>
+
+<h2>th:switch, th:case</h2>
+<h3>th:switch와 th:case를 통해 해당 조건 값이 어떤 case에 해당 되는지에 따라서 태그를 선택할 수 있다</h3>
+<th:block th:switch="${str}">
+    <span th:case="사과">사과가 선택되었습니다</span>
+    <span th:case="바나">바나나가 선택되었습니다</span>
+    <span th:case="${str}">바나나가 선택되었습니다</span>
+    <span th:case="*">Default 선택입니다</span>
+</th:block>
+
+<h2>th:each</h2>
+<h3>th:each를 통해 티그를 반복할 수 있다</h3>
+<table border="1">
+    <tr>
+        <th>이름</th>
+        <th>나이</th>
+        <th>성별</th>
+        <th>주소</th>
+    </tr>
+    <tr th:each="member : ${memberList}">
+        <th th:text="${member.name}"></th>
+        <th th:text="${member.age}"></th>
+        <th th:text="${member.gender}"></th>
+        <th th:text="${member.address}"></th>
+    </tr>
+</table>
+
+<h3>th:each에 stat를 추가해서 반복상태 확인 할 수 있다</h3>
+<h3>th:each에 stat추가하지 않으면, 변수명.stat로 확인할 수 있다
+    stat.index- > memberStat.index
+</h3>
+<p>
+    index : 0부터 시작하는 인덱스 값<br>
+    count : 1부터 시작하는 값 <br>
+    current : 현재 객체의 정보 <br>
+    even : 짝수 번째 데이터 여부 <br>
+    odd : 홀수 데이터 여부 <br>
+    first :  첫번째 데이터 여부 <br>
+    last : 마지막 데이터 여부
+</p>
+
+<table border="1">
+    <tr>
+        <th>이름</th>
+        <th>나이</th>
+        <th>성별</th>
+        <th>주소</th>
+        <th>index</th>
+        <th>count</th>
+        <th>current</th>
+        <th>even</th>
+        <th>odd</th>
+        <th>first</th>
+        <th>last</th>
+    </tr>
+    <tr th:each="member,stat : ${memberList}">
+        <th th:text="${member.name}"></th>
+        <th th:text="${member.age}"></th>
+        <th th:text="${member.gender}"></th>
+        <th th:text="${member.address}"></th>
+        <th th:text="${stat.index}"></th>
+        <th th:text="${stat.count}"></th>
+        <th th:text="${stat.current}"></th>
+        <th th:text="${stat.even}"></th>
+        <th th:text="${stat.odd}"></th>
+        <th th:text="${stat.first}"></th>
+        <th th:text="${stat.last}"></th>
+    </tr>
+</table>
+</body>
+</html>

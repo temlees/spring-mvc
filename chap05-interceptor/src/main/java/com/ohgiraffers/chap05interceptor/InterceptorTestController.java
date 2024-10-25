@@ -17,6 +17,7 @@ public class InterceptorTestController {
 
     @PostMapping("stopwatch")
     public String handlerMethod(Model model) throws InterruptedException {
+        // addAttribute : 객체에 데이터를 추가하고 이를 뷰에서 사용할 수 있게 됩니다.
        model.addAttribute("test","모델테스트");
         System.out.println("핸들러 메소드 호출함");
         interceptorService.method();
