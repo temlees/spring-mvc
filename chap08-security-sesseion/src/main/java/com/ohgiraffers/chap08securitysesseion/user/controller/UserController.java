@@ -28,8 +28,7 @@ public class UserController {
     @PostMapping("signup")
     public String signup(SignupDTO signupDTO , RedirectAttributes redirectAttributes) {
         int result = userService.regist(signupDTO);
-        System.out.println(result
-        );
+        System.out.println(result);
         String message;
 
         if(result >0 ) {
